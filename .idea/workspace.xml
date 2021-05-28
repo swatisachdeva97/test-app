@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94a42bb6-cbfa-48c0-bbf4-1946beeafff4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.css" afterPath="$PROJECT_DIR$/src/App.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ManageUserProfileContainer.js" afterPath="$PROJECT_DIR$/src/components/ManageUserProfileContainer.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/UserProfileContainer.js" afterPath="$PROJECT_DIR$/src/components/UserProfileContainer.js" />
     </list>
     <ignored path="oracle_app_swati.iws" />
@@ -75,7 +73,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/UserProfileContainer.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.61935484">
-              <caret line="45" column="94" selection-start-line="45" selection-start-column="94" selection-end-line="45" selection-end-column="94" />
+              <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -569,12 +567,12 @@
       <workItem from="1622066364902" duration="37000" />
       <workItem from="1622089568974" duration="4587000" />
       <workItem from="1622096303081" duration="14153000" />
-      <workItem from="1622151310955" duration="20672000" />
+      <workItem from="1622151310955" duration="20745000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65244000" />
+    <option name="totallyTimeSpent" value="65317000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1009,7 +1007,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/UserProfileContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.61935484">
-          <caret line="45" column="94" selection-start-line="45" selection-start-column="94" selection-end-line="45" selection-end-column="94" />
+          <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
           <folding />
         </state>
       </provider>

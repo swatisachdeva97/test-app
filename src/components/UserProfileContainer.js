@@ -6,25 +6,23 @@ export default class UserProfileContainer extends Component {
     state = {
         isLoading: false,
         isShowData: false,
-        clickedComment:null
+        clickedIndex:null
     };
 
 
     onClickHandler = (index)=> {
 
-        console.log(index);
-
         this.setState({
             isShowData: false,
             isLoading: true,
-            clickedComment:index
+            clickedIndex:index
         });
 
         setTimeout(()=> {
             this.setState({
                 isLoading: false,
                 isShowData: true,
-                clickedComment:index
+                clickedIndex:index
             })
         }, 2000)
     };
@@ -50,9 +48,9 @@ export default class UserProfileContainer extends Component {
                                 </a>
 
                                 <div className="loading-state">
-                                    <div className="show-data-fold-out">{this.state.isLoading && this.state.clickedComment == index ?
+                                    <div className="show-data-fold-out">{this.state.isLoading && this.state.clickedIndex == index ?
                                         <Spinner animation="border"/> : null}</div>
-                                    {this.state.isShowData && this.state.clickedComment == index ?
+                                    {this.state.isShowData && this.state.clickedIndex == index ?
                                         <div className="show-data-fold-out">
                                             <div> Name: {data.first_name}</div>
                                             <div>{data.last_name}</div>
