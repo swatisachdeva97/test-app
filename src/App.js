@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import ManageUserProfileContainer from './components/ManageUserProfileContainer';
+import SearchContainer from './components/TopContainer';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import { Router, Route } from "react-router-dom";
+import { createBrowserHistory as createHistory } from "history";
+import "./App.css";
+const history = createHistory();
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+        <Router history={history}>
+            <Route path="/" exact component={ManageUserProfileContainer} />
+            <Route path="/search" exact component={SearchContainer} />
+        </Router>
+        </div>
+    );
 }
-
 export default App;
