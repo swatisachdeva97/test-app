@@ -24,9 +24,9 @@ export default class ManageUserProfileContainer extends Component {
 
     onSearchHandler = (name)=> {
         console.log(name);
-        var regex = new RegExp(`^${name}`, "i");
+        const regex = new RegExp(`^${name}`, "i");
 
-        let initialData = this.state.userData;
+        const initialData = this.state.userData;
         if (name.length > 0) {
             let filteredData = initialData.filter((data)=>  regex.test(data.first_name));
             this.setState({filteredData: filteredData})

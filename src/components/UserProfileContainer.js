@@ -1,61 +1,68 @@
 import {React, Component} from 'react';
-import { Spinner } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner'
 
 export default class UserProfileContainer extends Component {
 
     state = {
-        isLoading: false
+        isLoading: false,
+        isShowData :false
     };
-
 
     CollapseHandler = ()=> {
 
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
-                }
-            });
-        }
+        this.setState({
+            isCollapse:true
+        })
+    };
+
+    onClickHandler = ()=>{
+
+        this.setState({
+            isShowData:false,
+            isLoading:true
+        });
+
+        setTimeout(()=>{
+            this.setState({
+                isLoading:false,
+                isShowData:true
+            })
+        },2000)
     };
 
     render() {
         let {userData} = this.props;
+        console.log(this.state.isLoading);
+
+        console.log(this.state.isCollapse);
+
         return (
             <div className="container">
                 <div className="row">
-
                     {
-                        userData.map((data)=>(
-                            <div >
-
+                        userData.map((data, i)=>(
+                            <div key={i}>
                                 <div className="column">
-                                <img className="avatar" src={data.avatar}/>
+                                    <img className="avatar" src={data.avatar}/>
                                 </div>
 
-                                <div className="thumnail">
+                                <a className="thumnail" onClick={this.onClickHandler}>
                                     <span> Name: {data.first_name}</span>{' '}
                                     <span>{data.last_name}</span><br/>
                                     <span>Country:{data.address.country}</span><br/>
                                     <span>Phone:{ data.phone_number}</span><br/>
                                     <span>Email:{ data.email}</span><br/>
+                                </a>
+                                    {this.state.isLoading ? <Spinner animation="border" />:null}
 
-                                    <button className="collapsible" onClick={this.CollapseHandler}>
-                                        AdditionalDetails...
-                                    </button>
+                                    {this.state.isShowData?
+                                        <div className="show-data-fold-out"><span> Name: {data.first_name}</span><br/>
+                                        <span>{data.last_name}</span><br/></div>
+                                        :
+                                        null
+                                    }
 
 
-                                    <div className="content">
-                                        <span>Title:{ data.employment.title}</span><br/>
-                                        <span>Key_Skill:{ data.employment.key_skill}</span><br/>
-                                    </div>
-                                </div>
                             </div>
                         ))
                     }
