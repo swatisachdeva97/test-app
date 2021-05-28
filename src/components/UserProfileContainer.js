@@ -5,29 +5,30 @@ export default class UserProfileContainer extends Component {
 
     state = {
         isLoading: false,
-        isShowData :false
+        isShowData: false
     };
 
     CollapseHandler = ()=> {
 
         this.setState({
-            isCollapse:true
+            isCollapse: true
         })
     };
 
-    onClickHandler = ()=>{
-
+    onClickHandler = (index)=> {
+        console.log("index");
+        console.log(index);
         this.setState({
-            isShowData:false,
-            isLoading:true
+            isShowData: false,
+            isLoading: true
         });
 
-        setTimeout(()=>{
+        setTimeout(()=> {
             this.setState({
-                isLoading:false,
-                isShowData:true
+                isLoading: false,
+                isShowData: true
             })
-        },2000)
+        }, 2000)
     };
 
     render() {
@@ -40,27 +41,31 @@ export default class UserProfileContainer extends Component {
             <div className="container">
                 <div className="row">
                     {
-                        userData.map((data, i)=>(
-                            <div key={i}>
+                        userData.map((data, index)=>(
+                            <div key={index}>
                                 <div className="column">
                                     <img className="avatar" src={data.avatar}/>
                                 </div>
+                                <div className="thumnail" onClick={()=> this.onClickHandler(index)}>
+                                    <div className="first-name"> Name: {data.first_name} {data.last_name}</div>
+                                    <div className="state">State:{data.address.state}</div>
+                                    <div className="country">Country:{data.address.country}</div>
+                                    <div className="phone">Phone:{ data.phone_number}</div>
+                                    <div className="email">Email:{ data.email}</div>
+                                </div>
 
-                                <a className="thumnail" onClick={this.onClickHandler}>
-                                    <span> Name: {data.first_name}</span>{' '}
-                                    <span>{data.last_name}</span><br/>
-                                    <span>Country:{data.address.country}</span><br/>
-                                    <span>Phone:{ data.phone_number}</span><br/>
-                                    <span>Email:{ data.email}</span><br/>
-                                </a>
-                                    {this.state.isLoading ? <Spinner animation="border" />:null}
-
-                                    {this.state.isShowData?
-                                        <div className="show-data-fold-out"><span> Name: {data.first_name}</span><br/>
-                                        <span>{data.last_name}</span><br/></div>
+                                <div className="loading-state">
+                                    <div className="show-data-fold-out">{this.state.isLoading ?
+                                        <Spinner animation="border"/> : null}</div>
+                                    {this.state.isShowData ?
+                                        <div className="show-data-fold-out">
+                                            <div> Name: {data.first_name}</div>
+                                            <div>{data.last_name}</div>
+                                        </div>
                                         :
                                         null
                                     }
+                                </div>
 
 
                             </div>
