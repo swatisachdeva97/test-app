@@ -5,38 +5,32 @@ export default class UserProfileContainer extends Component {
 
     state = {
         isLoading: false,
-        isShowData: false
+        isShowData: false,
+        clickedComment:null
     };
 
-    CollapseHandler = ()=> {
-
-        this.setState({
-            isCollapse: true
-        })
-    };
 
     onClickHandler = (index)=> {
-        console.log("index");
+
         console.log(index);
+
         this.setState({
             isShowData: false,
-            isLoading: true
+            isLoading: true,
+            clickedComment:index
         });
 
         setTimeout(()=> {
             this.setState({
                 isLoading: false,
-                isShowData: true
+                isShowData: true,
+                clickedComment:index
             })
         }, 2000)
     };
 
     render() {
         let {userData} = this.props;
-        console.log(this.state.isLoading);
-
-        console.log(this.state.isCollapse);
-
         return (
             <div className="container">
                 <div className="row">
@@ -46,18 +40,19 @@ export default class UserProfileContainer extends Component {
                                 <div className="column">
                                     <img className="avatar" src={data.avatar}/>
                                 </div>
-                                <div className="thumnail" onClick={()=> this.onClickHandler(index)}>
-                                    <div className="first-name"> Name: {data.first_name} {data.last_name}</div>
-                                    <div className="state">State:{data.address.state}</div>
-                                    <div className="country">Country:{data.address.country}</div>
-                                    <div className="phone">Phone:{ data.phone_number}</div>
-                                    <div className="email">Email:{ data.email}</div>
-                                </div>
+                                <a className="thumnail" onClick={()=> this.onClickHandler(index)}>
+
+                                       <div className="first-name"> Name: {data.first_name} {data.last_name}</div>
+                                       <div className="state">State:{data.address.state}</div>
+                                       <div className="country">Country:{data.address.country}</div>
+                                       <div className="phone">Phone:{ data.phone_number}</div>
+                                       <div className="email">Email:{ data.email}</div>
+                                </a>
 
                                 <div className="loading-state">
-                                    <div className="show-data-fold-out">{this.state.isLoading ?
+                                    <div className="show-data-fold-out">{this.state.isLoading && this.state.clickedComment == index ?
                                         <Spinner animation="border"/> : null}</div>
-                                    {this.state.isShowData ?
+                                    {this.state.isShowData && this.state.clickedComment == index ?
                                         <div className="show-data-fold-out">
                                             <div> Name: {data.first_name}</div>
                                             <div>{data.last_name}</div>

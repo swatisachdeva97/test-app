@@ -28,7 +28,7 @@ export default class ManageUserProfileContainer extends Component {
 
         const initialData = this.state.userData;
         if (name.length > 0) {
-            let filteredData = initialData.filter((data)=>  regex.test(data.first_name));
+            let filteredData = initialData.filter((data)=>  regex.test(`${data.first_name}`));
             this.setState({filteredData: filteredData})
 
         } else {
