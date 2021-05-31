@@ -1,65 +1,78 @@
 import React, {Component} from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
 import UserProfileContainer from './UserProfileContainer';
 import {getUserData} from '../services/Service';
 import TopContainer from './TopContainer';
-
+import Service from '../services/Service';
 
 export default class ManageUserProfileContainer extends Component {
 
     state = {
         userData: [],
-        filteredData: []
+        filteredData: [],
+        error: "",
+        searchedName: "",
+        isLoading: false
     };
 
-    async componentDidMount() {
-        const response = await fetch('https://random-data-api.com/api/users/random_user?size=16');
-        const json = await response.json();
-        this.setState({userData: json})
+    getInitialUserData() {
+
+        Service.getUserData().then((res)=> {
+            this.setState({
+                userData: res
+            })
+        }).catch((error)=> {
+            this.setState({error: "Invalid response"})
+        });
+    }
+
+    componentDidMount() {
+        this.getInitialUserData();
     }
 
     onSearchHandler = (name)=> {
-        console.log(name);
-        const regex = new RegExp(`^${name}`, "i");
 
+        //const regex = new RegExp(`^${name}`, "i");
         const initialData = this.state.userData;
         if (name.length > 0) {
-            let filteredData = initialData.filter((data)=>  regex.test(`${data.first_name}`));
-            this.setState({filteredData: filteredData})
-
+            let filteredData = initialData.filter((data)=> data.first_name
+                .toUpperCase().indexOf(name.toUpperCase()) >= 0);
+            this.setState({
+                filteredData: filteredData,
+                searchedName: name
+            })
         } else {
             this.setState({
-                filteredData: []
+                filteredData: [],
+                searchedName: ""
             })
         }
     };
+
 
     onHandleDropDownChange = (item)=> {
         let property = item;
         let sortedData;
         console.log(property);
         let initialData = this.state.userData;
-        if (item == 'first_name') {
+        if (item === 'first_name') {
             sortedData = [...initialData].sort((a, b)=> a.first_name.localeCompare(b.first_name));
-        } else if (item == "address.state") {
+        } else if (item === "address.state") {
             sortedData = [...initialData].sort((a, b)=> a.address.state.localeCompare(b.address.state));
         }
         this.setState({userData: sortedData})
     };
 
     render() {
-        console.log(this.state.userData);
+        const {userData, filteredData, error, searchedName, defaultOrderBy} = this.state;
 
-        const {userData, filteredData} = this.state;
         return (
             <div>
-                <TopContainer userData={userData} onSearchHandler={this.onSearchHandler}
-                                 onHandleDropDownChange={this.onHandleDropDownChange}/>
-                {this.state.filteredData.length > 0 ? <UserProfileContainer userData={filteredData}/> :
+                {userData.length > 0 ? <TopContainer userData={userData} onSearchHandler={this.onSearchHandler}
+                                                     onHandleDropDownChange={this.onHandleDropDownChange}/> : error}
+                {searchedName.length > 0 ? filteredData.length > 0 ?
+                    <UserProfileContainer userData={filteredData} defaultValue={defaultOrderBy}/> :
+                    <div className="search-error">No results matching search query. Try your search
+                        again!</div> :
                     <UserProfileContainer userData={userData}/>}
             </div>
         )

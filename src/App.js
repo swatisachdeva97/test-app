@@ -10,7 +10,6 @@ import { createBrowserHistory as createHistory } from "history";
 import "./App.css";
 const history = createHistory();
 
-
 function App() {
     return (
         <div className="App">
